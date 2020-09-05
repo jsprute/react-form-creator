@@ -1,14 +1,23 @@
-import React from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import './App.css';
-import {JSTextBox} from './components/jstextbox';
+import {JSTextBox} from './components/controls/jstextbox';
 
 function App() {
 
+  const [value, updateValue] = useState("");
+
+  function handleShow(){
+    alert(value);
+  }
+
+  function handleChange(event: ChangeEvent<HTMLInputElement>) {
+    updateValue(event.target.value);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <JSTextBox label="Test" ></JSTextBox>
-     </header>
+      <button type="button" onClick={() => handleShow()} > Show </button>
+        <JSTextBox label="Test" handleChange={handleChange} value={value} ></JSTextBox>
     </div>
   );
 }
