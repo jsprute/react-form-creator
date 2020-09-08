@@ -1,23 +1,23 @@
-import React, {ChangeEvent, useState} from 'react';
+import React from 'react';
 import './App.css';
-import {JSTextBox} from './components/controls/jstextbox';
+import {JSForm} from './components/jsform';
+import {FormItem} from './models/formitem';
+
+// need to track on index of controls
+// create a different object dedicated for values (outside of template)
+// parent form should track template
+
 
 function App() {
 
-  const [value, updateValue] = useState("");
-
-  function handleShow(){
-    alert(value);
-  }
-
-  function handleChange(event: ChangeEvent<HTMLInputElement>) {
-    updateValue(event.target.value);
-  }
+  const form: FormItem[] = [
+    new FormItem("1","single-text","First Name","",[]),
+    new FormItem("2","single-text","Second Name","",[])
+  ];
 
   return (
     <div className="App">
-      <button type="button" onClick={() => handleShow()} > Show </button>
-        <JSTextBox label="Test" handleChange={handleChange} value={value} ></JSTextBox>
+      <JSForm label="My Form" items={form} />
     </div>
   );
 }
