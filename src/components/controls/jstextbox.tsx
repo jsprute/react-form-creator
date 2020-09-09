@@ -1,23 +1,26 @@
 import React, { useEffect, useState, ChangeEvent } from 'react';
-import { isTemplateExpression } from 'typescript';
-import FormItem from '../../models/formitem'
+import { FormItem } from '../../models'
 
 type Props = {
-    item: FormItem
+    item: FormItem,
+    index: string,
+    handleChange: (index: string, event: ChangeEvent<HTMLInputElement>) => void
 }
 
 export const JSTextBox = (props: Props) => {
 
-    const [value, updateValue] = useState(props.item);
-
+    
     useEffect(() => {
     });
 
+    const [value, updateValue] = useState("");
+
+
     function handleChange(event: ChangeEvent<HTMLInputElement>) {
-        value.value = event.target.value;
-        updateValue(value);
+        let _value = event.target.value;
+        updateValue(_value);
+        props.handleChange(props.index, event)
     }
-  
 
     return (
     <div>
@@ -28,7 +31,7 @@ export const JSTextBox = (props: Props) => {
         <input
             type="text"
             placeholder={props.item.label}
-            value={props.item.value}
+            value={value}
             onChange={handleChange}
         />
         </div>
