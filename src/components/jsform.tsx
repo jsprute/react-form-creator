@@ -1,5 +1,5 @@
 import React, {ChangeEvent, useEffect} from 'react';
-import { JSTextBox } from './controls';
+import { JSTextBox, JSCheckBox } from './controls';
 import { FormItem } from '../models';
 
 type Props = {
@@ -36,7 +36,10 @@ export const JSForm = (props: Props) => {
     const formItems = [];
     let indx: number  = 0;
     for (let item of props.items) {
-      formItems.push(<JSTextBox handleChange={handleChange} index={(indx).toString()} key={(indx).toString()} item={item} ></JSTextBox>);
+      switch(item.type) {
+        case "single-text": formItems.push(<JSTextBox handleChange={handleChange} index={(indx).toString()} key={(indx).toString()} item={item} ></JSTextBox>); break;
+        case "checkbox": formItems.push(<JSCheckBox handleChange={handleChange} index={(indx).toString()} key={(indx).toString()} item={item} ></JSCheckBox>); break;
+      }  
       indx += 1;
     }
 

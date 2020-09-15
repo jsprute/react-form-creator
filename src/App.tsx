@@ -8,7 +8,8 @@ function App() {
   const form: FormItem[] = [
     new FormItem("single-text","First Name","",[]),
     new FormItem("single-text","Middle Name","",[]),
-    new FormItem("single-text","Third Name","",[])
+    new FormItem("single-text","Third Name","",[]),
+    new FormItem("checkbox","Enabled",true,[])
   ];
 
   return (

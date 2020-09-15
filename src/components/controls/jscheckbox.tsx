@@ -7,17 +7,17 @@ type Props = {
     handleChange: (index: string, event: ChangeEvent<HTMLInputElement>) => void
 }
 
-export const JSTextBox = (props: Props) => {
+export const JSCheckBox = (props: Props) => {
 
     
     useEffect(() => {
     });
 
-    const [value, updateValue] = useState("");
+    const [value, updateValue] = useState(false);
 
 
     function handleChange(event: ChangeEvent<HTMLInputElement>) {
-        let _value = event.target.value;
+        let _value = event.target.checked;
         updateValue(_value);
         props.handleChange(props.index, event)
     }
@@ -26,9 +26,9 @@ export const JSTextBox = (props: Props) => {
     <div>
             {props.item.label}
         <input
-            type="text"
+            type="checkbox"
             placeholder={props.item.label}
-            value={value}
+            checked={value}
             onChange={handleChange}
         />
     </div>
