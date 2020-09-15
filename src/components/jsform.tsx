@@ -16,7 +16,12 @@ export const JSForm = (props: Props) => {
      * Just a dummy function to show a value
      */
     function handleShow(){
-        alert(`String 1: ${props.items[0].value} and String 2: ${props.items[1].value}`);
+        let values: string = "";
+        props.items.forEach(item => {
+            values += `${item.label} : ${item.value}\n`;
+        })
+        
+        alert(values);
     }
     
     /**
