@@ -1,6 +1,7 @@
-import React, {ChangeEvent, useEffect} from 'react';
-import { JSTextBox, JSCheckBox } from './controls';
+import React, {ChangeEvent, useEffect, useState} from 'react';
+import * as Controls from './controls';
 import { FormItem } from '../models';
+import { Console } from 'console';
 
 type Props = {
     label: string,
@@ -9,19 +10,26 @@ type Props = {
 
 export const JSForm = (props: Props) => {
 
+    const [vals, updateVals] = useState(buildTree({}, props.items));
+    
     useEffect(() => {
+        console.log("Form did mount!");
     });
 
-    /**
-     * Just a dummy function to show a value
-     */
+    function buildTree(vals: any, items: FormItem[]): any {
+        items.forEach(item => {
+            if(item.items.length > 0){
+                vals[item.label] = buildTree({},item.items);
+            }
+            else {
+                vals[item.label] = item.value;
+            }
+        });
+        return vals;
+    }
+
     function handleShow(){
-        let values: string = "";
-        props.items.forEach(item => {
-            values += `${item.label} : ${item.value}\n`;
-        })
-        
-        alert(values);
+        alert(JSON.stringify(vals));
     }
     
     /**
@@ -29,9 +37,26 @@ export const JSForm = (props: Props) => {
      * @param index - index of the control (childrent will have multiple indexes)
      * @param event - change event
      */
+    // will need to state the values 
     function handleChange(index: string, event: ChangeEvent<HTMLInputElement>) {
-        console.log("Change event value ", event.target.value, " for index ", index );
-        props.items[parseInt(index)].value = event.target.value;
+        let indexes: string[] = index.split('-');
+
+        let temp:any = updateBranch(vals, props.items, indexes, event.target);
+        updateVals(temp);
+    }
+
+    function updateBranch(vals: any, items: FormItem[], indexes: string[], value: any) {
+        const [index, ...otherindexes] = indexes;
+        if(otherindexes.length > 0){
+            vals[items[parseInt(index)].label] = updateBranch(vals[items[parseInt(index)].label], items[parseInt(index)].items, otherindexes, value);
+        }
+        else {
+            if(items[parseInt(index)].type == "checkbox")
+                vals[items[parseInt(index)].label] = value.checked;
+            else
+                vals[items[parseInt(index)].label] = value.value;
+        }
+        return vals;
     }
 
 
@@ -42,8 +67,9 @@ export const JSForm = (props: Props) => {
     let indx: number  = 0;
     for (let item of props.items) {
       switch(item.type) {
-        case "single-text": formItems.push(<JSTextBox handleChange={handleChange} index={(indx).toString()} key={(indx).toString()} item={item} ></JSTextBox>); break;
-        case "checkbox": formItems.push(<JSCheckBox handleChange={handleChange} index={(indx).toString()} key={(indx).toString()} item={item} ></JSCheckBox>); break;
+        case "single-text": formItems.push(<Controls.JSTextBox handleChange={handleChange} index={(indx).toString()} key={(indx).toString()} item={item} ></Controls.JSTextBox>); break;
+        case "checkbox": formItems.push(<Controls.JSCheckBox handleChange={handleChange} index={(indx).toString()} key={(indx).toString()} item={item} ></Controls.JSCheckBox>); break;
+        case "group": formItems.push(<Controls.JSGroup handleChange={handleChange} index={(indx).toString()} key={(indx).toString()} item={item} ></Controls.JSGroup>); break;
       }  
       indx += 1;
     }
