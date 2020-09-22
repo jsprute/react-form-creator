@@ -1,24 +1,24 @@
 import React from 'react';
+import { HashRouter, Switch, Route, Link } from 'react-router-dom';
+import { FormDisplay } from './pages/formDisplay'
+import { Home } from './pages/home'
 import './App.css';
-import {JSForm} from './components/jsform';
-import {FormItem} from './models/formitem';
 
 function App() {
 
-  const form: FormItem[] = [
-    new FormItem("single-text","First Name","",[]),
-    new FormItem("single-text","Middle Name","",[]),
-    new FormItem("single-text","Third Name","",[]),
-    new FormItem("checkbox","Enabled",true,[]),
-    new FormItem("group","My Group","",[
-      new FormItem("single-text","City","",[]),
-      new FormItem("single-text","State","",[])
-    ])
-  ];
-
   return (
     <div className="App">
-      <JSForm label="My Form" items={form} />
+      <h1>My Form Creator</h1>
+      <HashRouter>
+        <ul>
+          <li><Link to='/'>Home</Link></li>
+          <li><Link to='/formdisplay'>Form Display</Link></li>
+        </ul>
+        <Switch>
+          <Route exact path='/' component={Home}/>
+          <Route path='/formdisplay' component={FormDisplay}/>
+        </Switch>
+      </HashRouter>
     </div>
   );
 }
