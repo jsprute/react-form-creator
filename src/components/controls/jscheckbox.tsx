@@ -1,10 +1,12 @@
 import React, { useEffect, useState, ChangeEvent } from 'react';
+import { Checkbox } from '@fluentui/react';
 import { FormItem } from '../../models'
 
 type Props = {
     item: FormItem,
     index: string,
-    handleChange: (index: string, event: ChangeEvent<HTMLInputElement>) => void
+    handleChange: (index: string, event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, value?: any) => void
+
 }
 
 export const JSCheckBox = (props: Props) => {
@@ -16,17 +18,17 @@ export const JSCheckBox = (props: Props) => {
     const [value, updateValue] = useState(false);
 
 
-    function handleChange(event: ChangeEvent<HTMLInputElement>) {
-        let _value = event.target.checked;
-        updateValue(_value);
-        props.handleChange(props.index, event)
+    function handleChange(ev?: React.FormEvent<HTMLInputElement | HTMLElement> | undefined, checked?: boolean | undefined) {
+        if(checked != null && ev != null && ev != undefined){
+            updateValue(checked);
+            props.handleChange(props.index, ev as React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, checked);
+        }
     }
 
     return (
     <div>
             {props.item.label}
-        <input
-            type="checkbox"
+        <Checkbox
             placeholder={props.item.label}
             checked={value}
             onChange={handleChange}

@@ -1,7 +1,7 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import * as Controls from './controls';
 import { FormItem } from '../models';
-import { Console } from 'console';
+import { PrimaryButton } from '@fluentui/react';
 
 type Props = {
     label: string,
@@ -38,9 +38,8 @@ export const JSForm = (props: Props) => {
      * @param event - change event
      */
     // will need to state the values 
-    function handleChange(index: string, event: ChangeEvent<HTMLInputElement>) {
+    function handleChange(index: string, event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: any):void {
         let indexes: string[] = index.split('-');
-
         let temp:any = updateBranch(vals, props.items, indexes, event.target);
         updateVals(temp);
     }
@@ -77,7 +76,7 @@ export const JSForm = (props: Props) => {
     return (
     <div>
         {formItems}
-        <button type="button" onClick={() => handleShow()} > Show </button>
+        <PrimaryButton type="button" onClick={() => handleShow()} > Show </PrimaryButton>
     </div>
     );
 

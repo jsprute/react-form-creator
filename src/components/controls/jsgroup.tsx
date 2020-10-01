@@ -5,7 +5,7 @@ import * as Controls from '.';
 type Props = {
     item: FormItem,
     index: string,
-    handleChange: (index: string, event: ChangeEvent<HTMLInputElement>) => void
+    handleChange: (index: string, event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => void
 }
 
 export const JSGroup = (props: Props) => {
