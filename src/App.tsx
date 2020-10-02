@@ -22,7 +22,7 @@ function App() {
                     <Link className = "nav-link active" to='/'>Home<span className = "sr-only">(current)</span></Link>
                   </li>
                   <li className = "nav-item">
-                    <Link className = "nav-link" to='/formlist'>Form Display</Link>
+                    <Link className = "nav-link" to='/formlist'>Form Edit</Link>
                   </li>
                   <li className = "nav-item">
                     <Link className = "nav-link" to='/formdisplay'>Form Display</Link>
@@ -30,13 +30,15 @@ function App() {
                </ul>
             </div>
          </nav>
-         <br/>
-         <br/>
-        <Switch>
+         <div className="main-window"> 
+         <div className="main-page">
+        <Switch >
           <Route exact path='/' component={Home}/>
           <Route path='/formlist' component={FormList}/>
           <Route path='/formdisplay' component={FormDisplay}/>
         </Switch>
+        </div>
+        </div>
       </HashRouter>
     </div>
   );

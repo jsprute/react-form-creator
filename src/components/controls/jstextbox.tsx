@@ -27,7 +27,7 @@ export const JSTextBox = (props: Props) => {
             {props.item.label}
         <TextField
             type="text"
-            placeholder={props.item.label}
+            //placeholder={props.item.label}
             value={value}
             onChange={handleChange}
         />

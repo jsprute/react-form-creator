@@ -58,7 +58,7 @@ export const JSForm = (props: Props) => {
         return vals;
     }
 
-
+    
     /**
      * Build form
      */
@@ -66,9 +66,9 @@ export const JSForm = (props: Props) => {
     let indx: number  = 0;
     for (let item of props.items) {
       switch(item.type) {
-        case "single-text": formItems.push(<Controls.JSTextBox handleChange={handleChange} index={(indx).toString()} key={(indx).toString()} item={item} ></Controls.JSTextBox>); break;
-        case "checkbox": formItems.push(<Controls.JSCheckBox handleChange={handleChange} index={(indx).toString()} key={(indx).toString()} item={item} ></Controls.JSCheckBox>); break;
-        case "group": formItems.push(<Controls.JSGroup handleChange={handleChange} index={(indx).toString()} key={(indx).toString()} item={item} ></Controls.JSGroup>); break;
+        case "single-text": formItems.push(<div><Controls.JSTextBox handleChange={handleChange} index={(indx).toString()} key={(indx).toString()} item={item} ></Controls.JSTextBox><hr/></div>); break;
+        case "checkbox": formItems.push(<div><Controls.JSCheckBox handleChange={handleChange} index={(indx).toString()} key={(indx).toString()} item={item} ></Controls.JSCheckBox><hr/></div>); break;
+        case "group": formItems.push(<div><Controls.JSGroup handleChange={handleChange} index={(indx).toString()} key={(indx).toString()} item={item} ></Controls.JSGroup><hr/></div>); break;
       }  
       indx += 1;
     }
