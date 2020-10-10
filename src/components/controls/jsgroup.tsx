@@ -29,7 +29,7 @@ export const JSGroup = (props: Props) => {
     }
 
     return (
-    <div>
+    <div className="form-group">
         <div><h3>{props.item.label}</h3></div>
        {formItems}
     </div>

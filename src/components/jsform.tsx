@@ -5,7 +5,8 @@ import { PrimaryButton } from '@fluentui/react';
 
 type Props = {
     label: string,
-    items: FormItem[]
+    items: FormItem[],
+    handleSubmit: (values: any) => void
 }
 
 export const JSForm = (props: Props) => {
@@ -28,10 +29,6 @@ export const JSForm = (props: Props) => {
         return vals;
     }
 
-    function handleShow(){
-        alert(JSON.stringify(vals));
-    }
-    
     /**
      * Handles any change event
      * @param index - index of the control (childrent will have multiple indexes)
@@ -76,7 +73,8 @@ export const JSForm = (props: Props) => {
     return (
     <div>
         {formItems}
-        <PrimaryButton type="button" onClick={() => handleShow()} > Show </PrimaryButton>
+        <PrimaryButton type="button" onClick={() => props.handleSubmit(vals)} > Show </PrimaryButton>
+
     </div>
     );
 
