@@ -1,9 +1,13 @@
 import React from 'react';
 import { HashRouter, Switch, Route, Link } from 'react-router-dom';
-import { Home, FormDisplay, FormList } from './pages'
+import { Home, FormDisplay, FormList } from './pages';
+import { LocalStorage } from './services/localstorage';
+import { Storage } from './services/storage.interface';
 import './App.css';
 
 function App() {
+
+  const storage: Storage = new LocalStorage();
 
   return (
     <div className="App">
@@ -35,7 +39,8 @@ function App() {
         <Switch >
           <Route exact path='/' component={Home}/>
           <Route path='/formlist' component={FormList}/>
-          <Route path='/formdisplay' component={FormDisplay}/>
+          <Route path='/formdisplay' render={ (props) => <FormDisplay {...props} storage={storage} /> } />
+          
         </Switch>
         </div>
         </div>

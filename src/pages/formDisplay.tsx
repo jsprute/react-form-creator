@@ -2,25 +2,26 @@ import React, {ChangeEvent, useEffect, useState} from 'react';
 import {JSForm} from '../components/jsform';
 import {FormItem} from '../models/formitem';
 import {JSPopup} from '../components/jspopup';
+import {Storage} from '../services/storage.interface';
 
 type Props = {
-  label: string,
-  items: FormItem[]
+  storage: Storage,
 }
 
 type State = {
   popUp: Boolean,
-  message: string
+  message: string,
+  storage: Storage
 }
 
 export class FormDisplay extends React.Component<Props, State> {
 
-  
   constructor(props: Props) {
     super(props);
     this.state = {
       popUp: false,
-      message: ""
+      message: "",
+      storage: props.storage
     }
   }
 
@@ -50,20 +51,7 @@ export class FormDisplay extends React.Component<Props, State> {
 
   render() {
 
-    const form: FormItem[] = [
-      new FormItem("single-text","First Name","",[]),
-      new FormItem("single-text","Middle Name","",[]),
-      new FormItem("single-text","Third Name","",[]),
-      new FormItem("checkbox","Enabled",true,[]),
-      new FormItem("group","My Group","",[
-        new FormItem("single-text","City","",[]),
-        new FormItem("single-text","State","",[]),
-        new FormItem("group","My Sub-Group","",[
-          new FormItem("single-text","Zip","",[]),
-          new FormItem("single-text","Code","",[])
-        ])
-      ])
-    ];
+    const form: FormItem[] = this.state.storage.GetForm("NameDoesNotMatterRightNow");
 
     if(this.state.popUp) {
       return (
