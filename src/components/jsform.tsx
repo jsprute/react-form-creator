@@ -74,8 +74,7 @@ export const JSForm = (props: Props) => {
     <div>
         {formItems}
         <PrimaryButton type="button" onClick={() => props.handleSubmit(vals)} > Show </PrimaryButton>
-
-    </div>
+   </div>
     );
 
 }

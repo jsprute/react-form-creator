@@ -40,7 +40,6 @@ export class FormDisplay extends React.Component<Props, State> {
 
 
   handleShow = (vals: any) => {
-    //alert(JSON.stringify(vals));
     let result: string = JSON.stringify(vals, null, 4);
     this.setState({popUp: true, message: result });
   }

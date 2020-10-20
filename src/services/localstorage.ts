@@ -1,17 +1,33 @@
 import { FormItem } from '../models';
 import {Storage} from './storage.interface'
+import {classToPlain, plainToClassFromExist, Expose, Type} from "class-transformer";
+import localForage from "localforage";
 
 export class LocalStorage implements Storage {
     
-    ListRecords() { 
+  private _store: LocalForage;
+
+  constructor() {
+    this._store = localForage.createInstance({
+      name: 'Forms',
+      version: 1.0,
+      storeName: `js-forms-storage`,
+      description: 'Custom Form Storage'
+    });
+  }
+
+    ListRecords(): String[] { 
+        //this._store.getItem();
         return [];
     };
 
     WriteRecords(records: String[]){
-
+      
     }
     
     GetForm(name: String){
+
+
         return [
             new FormItem("single-text","First Name","",[]),
             new FormItem("single-text","Middle Name","",[]),
@@ -29,7 +45,8 @@ export class LocalStorage implements Storage {
     }
 
     SaveForm(name: String, form: FormItem[]){
-        
+      const serializedVersion = classToPlain(form, {excludePrefixes: ["_"] });
+      console.log("Serialized version: ", serializedVersion);
     }
 
 }

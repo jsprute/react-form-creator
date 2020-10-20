@@ -1,4 +1,4 @@
-import React, { useEffect, useState, ChangeEvent } from 'react';
+import React, { useEffect, useState } from 'react';
 import { TextField } from '@fluentui/react';
 import { FormItem } from '../../models'
 
@@ -27,7 +27,6 @@ export const JSTextBox = (props: Props) => {
             {props.item.label}
         <TextField
             type="text"
-            //placeholder={props.item.label}
             value={value}
             onChange={handleChange}
         />

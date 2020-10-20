@@ -4,6 +4,8 @@ import { Home, FormDisplay, FormList } from './pages';
 import { LocalStorage } from './services/localstorage';
 import { Storage } from './services/storage.interface';
 import './App.css';
+import 'reflect-metadata';
+import 'es6-shim';
 
 function App() {
 
@@ -38,9 +40,8 @@ function App() {
          <div className="main-page">
         <Switch >
           <Route exact path='/' component={Home}/>
-          <Route path='/formlist' component={FormList}/>
+          <Route path='/formlist' render={ (props) => <FormList {...props} storage={storage} /> } />
           <Route path='/formdisplay' render={ (props) => <FormDisplay {...props} storage={storage} /> } />
-          
         </Switch>
         </div>
         </div>
