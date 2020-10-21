@@ -1,8 +1,8 @@
 import {FormItem} from '../models';
 
 export interface Storage {
-    ListRecords: () => String[];
-    WriteRecords: (records: String[]) => void;
-    GetForm: (name: String) => FormItem[];
-    SaveForm: (name: String, form: FormItem[]) => void;
+    ListRecords: () => Promise<string[]>;
+    WriteRecords: (records: string[]) => Promise<void>;
+    GetForm: (name: string) => FormItem[];
+    SaveForm: (name: string, form: FormItem[]) => void;
 }

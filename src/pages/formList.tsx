@@ -52,8 +52,8 @@ export class FormList extends React.Component<Props, State> {
         return (
             <div>
                 <h1>Form Editor</h1>
-                <JSFormSelector handlePushForm={val => alert(val)}/>
-                <JSFormEditor items={[]} handleSave={(values)=>{}}/>
+                <JSFormSelector handlePushForm={val => alert(val)} storage={this.props.storage}/>
+                <JSFormEditor items={[]} handleSave={(values)=>{}} />
             </div>
         );
     }
@@ -61,7 +61,7 @@ export class FormList extends React.Component<Props, State> {
         return (
             <div>
                 <h1>Form Editor</h1>
-                <JSFormSelector handlePushForm={val => alert(val)}/>
+                <JSFormSelector handlePushForm={val => alert(val)} storage={this.props.storage}/>
                 <JSFormEditor items={[]} handleSave={(values)=>{}}/>
             </div>
         );

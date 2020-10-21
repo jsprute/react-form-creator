@@ -1,10 +1,12 @@
-import React, {ReactElement, useState} from 'react';
+import React, {ReactElement, useEffect, useState} from 'react';
 import { Dropdown, IDropdownStyles, IDropdownOption } from 'office-ui-fabric-react/lib/Dropdown';
 import { PrimaryButton, DefaultButton } from '@fluentui/react';
 import { JSTextInputPopUp } from '../components/jstextinputpopup';
 import { JSConfirmPopUp } from '../components/jsconfirmpopup';
+import { Storage } from '../services/storage.interface';
 
 type Props = {
+    storage: Storage,
     handlePushForm: (formId: string) => void
 }
 
@@ -13,6 +15,15 @@ export const JSFormSelector = (props: Props) => {
     const dropdownStyles: Partial<IDropdownStyles> = {
         dropdown: { width: 300 }
     };
+
+    useEffect(() => {
+        props.storage.ListRecords().then(value => {
+            updateFormList(value);
+        })
+        .catch(error => {
+            alert(error);
+        });
+    });
     
     const [value, updateValue] = useState("");
     const [showRequestInputValue, updateShowRequestInputValue] = useState(false);
@@ -20,7 +31,7 @@ export const JSFormSelector = (props: Props) => {
     const [formList, updateFormList] = useState([] as string[]);
     let popElement: ReactElement | null = null;
 
-    const options: IDropdownOption[] = formList.map(item => ({ key: item, text: item }));
+    const options: IDropdownOption[] = formList.map(value => ({ key: value, text: value }));
     
     function handleChange(event: React.FormEvent<HTMLDivElement>, option?: IDropdownOption, index?: number):void {
         if(option != null && option != undefined){
@@ -42,6 +53,9 @@ export const JSFormSelector = (props: Props) => {
         if("" !== value.trim()){
             formList.push(value.trim());
             updateFormList(formList);
+            props.storage.WriteRecords(formList)
+            .then(()=> {})
+            .catch((error) => alert(error));
         }
         updateShowRequestInputValue(false);
     }
@@ -72,7 +86,11 @@ export const JSFormSelector = (props: Props) => {
     // handle new name submit
     function handleDeleteConfirmSubmit(value: string):void {
         if("" !== value.trim()){
-            updateFormList(formList.filter(item => item !== value));
+            let newList = formList.filter(item => item !== value);
+            updateFormList(newList);
+            props.storage.WriteRecords(newList)
+            .then(()=> {})
+            .catch((error) => alert(error));
         }
         updateShowConfirmValue(false);
     }
@@ -87,7 +105,7 @@ export const JSFormSelector = (props: Props) => {
         popElement = (<JSConfirmPopUp message={"Confirm delete " + value} keyId={value} clickHandle={handleDeleteConfirmSubmit} cancelHandle={handleDeleteConfirmCancel} />);
     }
     /////////////////////////////////
-    // END Cofnrim functionality
+    // END Confirm functionality
     /////////////////////////////////
 
       
