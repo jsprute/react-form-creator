@@ -1,6 +1,6 @@
 import { FormItem } from '../models';
 import {Storage} from './storage.interface'
-import {classToPlain, plainToClassFromExist, Expose, Type} from "class-transformer";
+import {classToPlain} from "class-transformer";
 import localForage from "localforage";
 
 export class LocalStorage implements Storage {
@@ -15,7 +15,7 @@ export class LocalStorage implements Storage {
       description: 'Custom Form Storage'
     });
   }
-
+  
     ListRecords(): Promise<string[]> {
       return new Promise<string[]>((resolve, reject) => {
         this._store.getItem("_js_forms")
@@ -62,6 +62,24 @@ export class LocalStorage implements Storage {
     SaveForm(name: string, form: FormItem[]){
       const serializedVersion = classToPlain(form, {excludePrefixes: ["_"] });
       console.log("Serialized version: ", serializedVersion);
+      return new Promise<void>((resolve, reject) => {
+        this._store.setItem(name, serializedVersion)
+        .then(value => {
+              resolve();
+          })
+          .catch(err => {
+            reject(err);
+          }) 
+        });
     }
+
+    DeleteForm(name: string) {
+      return new Promise<void>((resolve, reject) => {
+        this._store.removeItem(name)
+          .then(value => {resolve();})
+          .catch(err => {reject(err);});
+      });
+    }
+
 
 }

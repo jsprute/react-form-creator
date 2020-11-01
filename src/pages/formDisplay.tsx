@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
+import React from 'react';
 import {JSForm} from '../components/jsform';
 import {FormItem} from '../models/formitem';
 import {JSPopup} from '../components/jspopup';

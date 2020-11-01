@@ -1,4 +1,4 @@
-import React, { useEffect, useState, ChangeEvent } from 'react';
+import React  from 'react';
 import { FormItem } from '../../models'
 import * as Controls from '.';
 
@@ -9,10 +9,6 @@ type Props = {
 }
 
 export const JSGroup = (props: Props) => {
-
-    
-    useEffect(() => {
-    });
 
     /**
      * Build form

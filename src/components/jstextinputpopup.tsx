@@ -1,17 +1,14 @@
-import React, {ReactElement, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { PrimaryButton, DefaultButton } from '@fluentui/react';
 import { TextField } from '@fluentui/react';
 
 type Props = {
     clickHandle: (value: string) => void,
     cancelHandle: () => void,
+    message: string
 }
 
 export const JSTextInputPopUp = (props: Props) => {
-
-    useEffect(() => {
-        console.log("JSTextInputPopUp did mount!");
-    });
 
     const [value, updateValue] = useState("");
 
@@ -24,6 +21,7 @@ export const JSTextInputPopUp = (props: Props) => {
     return (
     <div className="cover" >
         <div className="pop-card">
+        <span>{props.message}</span>
         <TextField type="text" value={value} onChange={handleChange} />
             <hr/>
             <PrimaryButton type="button" onClick={() => props.clickHandle(value)} > OK </PrimaryButton>

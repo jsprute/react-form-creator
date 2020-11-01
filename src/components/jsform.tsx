@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import * as Controls from './controls';
 import { FormItem } from '../models';
 import { PrimaryButton } from '@fluentui/react';
@@ -47,7 +47,7 @@ export const JSForm = (props: Props) => {
             vals[items[parseInt(index)].label] = updateBranch(vals[items[parseInt(index)].label], items[parseInt(index)].items, otherindexes, value);
         }
         else {
-            if(items[parseInt(index)].type == "checkbox")
+            if(items[parseInt(index)].type === 'checkbox')
                 vals[items[parseInt(index)].label] = value.checked;
             else
                 vals[items[parseInt(index)].label] = value.value;

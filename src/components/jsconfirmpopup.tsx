@@ -1,6 +1,5 @@
-import React, {ReactElement, useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import { PrimaryButton, DefaultButton } from '@fluentui/react';
-import { TextField } from '@fluentui/react';
 
 type Props = {
     message: string,
