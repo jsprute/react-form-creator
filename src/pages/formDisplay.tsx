@@ -25,20 +25,6 @@ export class FormDisplay extends React.Component<Props, State> {
     }
   }
 
-  componentDidMount() {
-    console.log("FormDisplay Did Mount");
-  }
-
-  componentShouldUpdate() {
-    console.log("FormDisplay Should Update");
-  }
-
-  componentWillUnmount() {
-    console.log("FormDisplay Will UnMount");
-  }
-
-
-
   handleShow = (vals: any) => {
     let result: string = JSON.stringify(vals, null, 4);
     this.setState({popUp: true, message: result });
@@ -49,9 +35,7 @@ export class FormDisplay extends React.Component<Props, State> {
   }
 
   render() {
-
     const form: FormItem[] = this.state.storage.GetForm("NameDoesNotMatterRightNow");
-
     if(this.state.popUp) {
       return (
         <div>

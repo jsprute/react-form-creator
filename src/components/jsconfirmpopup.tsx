@@ -9,11 +9,6 @@ type Props = {
 }
 
 export const JSConfirmPopUp = (props: Props) => {
-
-    useEffect(() => {
-        console.log("JSConfirmPopUp did mount!");
-    });
-
     return (
     <div className="cover" >
         <div className="pop-card">
