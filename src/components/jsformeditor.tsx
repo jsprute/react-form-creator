@@ -1,7 +1,7 @@
 import React, {useState, ReactElement} from 'react';
 import { FormItem } from '../models';
 import { PrimaryButton, DefaultButton, BaseButton, Button } from '@fluentui/react';
-
+import {JSFormEditItem} from './jsformedititem';
 type Props = {
     items: FormItem[],
     handleSave: (values: any) => void
@@ -15,8 +15,7 @@ export const JSFormEditor = (props: Props) => {
     list.forEach((item,i) => {
         itemList.push(
             <div key={i}>
-                <span>item.label</span>
-                <hr />
+                <JSFormEditItem item={item} />
             </div>
         );
     });

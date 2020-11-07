@@ -55,7 +55,7 @@ export class FormList extends React.Component<Props, State> {
       let _value = value.trim();
       if("" !== _value){
         this.props.storage.ListRecords().then(list => {
-          if(list.filter(item => item === _value).length == 0){
+          if(list.filter(item => item === _value).length === 0){
             list.push(_value);
             this.props.storage.WriteRecords(list);
             this.props.storage.SaveForm(_value, [] as FormItem[]);

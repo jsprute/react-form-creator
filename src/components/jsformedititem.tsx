@@ -1,36 +1,52 @@
 import React, {useState, ReactElement} from 'react';
 import { FormItem } from '../models';
 import { PrimaryButton, DefaultButton } from '@fluentui/react';
+import { TextField } from '@fluentui/react';
+import { Dropdown, IDropdownStyles, IDropdownOption } from 'office-ui-fabric-react/lib/Dropdown';
 
 type Props = {
-    items: FormItem[],
-    handleSave: (values: any) => void
+    item: FormItem
 }
+
+const dropdownStyles: Partial<IDropdownStyles> = {
+    dropdown: { width: 300 }
+};
+
+            
+const options: IDropdownOption[] = [
+    { key: 'single-text', text: 'single-text' },
+    { key: 'checkbox', text: 'checkbox' },
+    { key: 'group', text: 'group' },
+];
 
 export const JSFormEditItem = (props: Props) => {
 
-    const [list, updateList] = useState(props.items);
-    const itemList: ReactElement[] = [];
+    const [formItem, updateFormItem] = useState(props.item);
+    //const [value, updateValue] = useState(undefined as unknown as IDropdownOption);
 
-    props.items.forEach((item,i) => {
-        itemList.push(
-            <div key={i}>
-                <span>item.label</span>
-            </div>
-        );
-    });
-
-    function addItem(event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string):void {
-        list.push(new FormItem("single-text", "Item " + list.length.toString(), "No value", []));
-        updateList(list);
+    function handleLabelChange(event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string):void {
+        if(newValue != null){
+            formItem.label = newValue;
+            updateFormItem(new FormItem(formItem.type, formItem.label, formItem.value, formItem.items));
+        }
     }
 
+    function handleTypeChange(event: React.FormEvent<HTMLDivElement>, option?: IDropdownOption, index?: number):void {
+        //if(option !== null && option !== undefined){
+        //    updateValue(option);
+        //}
+    }
 
     return (
     <div>
-        {itemList}
-        <DefaultButton type="button" onClick={() => addItem} >Add Item </DefaultButton>
-        <PrimaryButton type="button" onClick={() => props.handleSave(list)} > Save </PrimaryButton>
+         <Dropdown
+            placeholder="Select an option"
+            options={options}
+            styles={dropdownStyles}
+            defaultSelectedKey={formItem.type}
+            onChange={handleTypeChange}
+        />
+        <TextField type="text" value={formItem.label} onChange={handleLabelChange} />
     </div>
     );
 
