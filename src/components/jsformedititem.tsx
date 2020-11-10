@@ -5,7 +5,9 @@ import { TextField } from '@fluentui/react';
 import { Dropdown, IDropdownStyles, IDropdownOption } from 'office-ui-fabric-react/lib/Dropdown';
 
 type Props = {
-    item: FormItem
+    item: FormItem,
+    updateItem: (formItem: FormItem) => void,
+    deleteItem: (id: string) => void,
 }
 
 const dropdownStyles: Partial<IDropdownStyles> = {
@@ -27,7 +29,7 @@ export const JSFormEditItem = (props: Props) => {
     function handleLabelChange(event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string):void {
         if(newValue != null){
             formItem.label = newValue;
-            updateFormItem(new FormItem(formItem.type, formItem.label, formItem.value, formItem.items));
+            updateFormItem(new FormItem(formItem.id, formItem.type, formItem.label, formItem.value, formItem.items));
         }
     }
 
@@ -39,7 +41,8 @@ export const JSFormEditItem = (props: Props) => {
 
     return (
     <div>
-         <Dropdown
+        <hr/>
+        <Dropdown
             placeholder="Select an option"
             options={options}
             styles={dropdownStyles}
@@ -47,6 +50,8 @@ export const JSFormEditItem = (props: Props) => {
             onChange={handleTypeChange}
         />
         <TextField type="text" value={formItem.label} onChange={handleLabelChange} />
+        <DefaultButton type="button" onClick={() => props.deleteItem(formItem.id)} >Delete </DefaultButton>
+        <hr/>
     </div>
     );
 
