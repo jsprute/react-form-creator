@@ -1,6 +1,6 @@
-import React, {useState, ReactElement} from 'react';
+import React from 'react';
 import { FormItem } from '../models';
-import { PrimaryButton, DefaultButton } from '@fluentui/react';
+import { DefaultButton } from '@fluentui/react';
 import { TextField } from '@fluentui/react';
 import { Dropdown, IDropdownStyles, IDropdownOption } from 'office-ui-fabric-react/lib/Dropdown';
 
@@ -23,20 +23,22 @@ const options: IDropdownOption[] = [
 
 export const JSFormEditItem = (props: Props) => {
 
-    const [formItem, updateFormItem] = useState(props.item);
-    //const [value, updateValue] = useState(undefined as unknown as IDropdownOption);
-
     function handleLabelChange(event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string):void {
         if(newValue != null){
+            let formItem: FormItem = props.item;
             formItem.label = newValue;
-            updateFormItem(new FormItem(formItem.id, formItem.type, formItem.label, formItem.value, formItem.items));
+            let _temp: FormItem = new FormItem(formItem.id, formItem.type, formItem.label, formItem.value, formItem.items); 
+            props.updateItem(_temp);
         }
     }
 
     function handleTypeChange(event: React.FormEvent<HTMLDivElement>, option?: IDropdownOption, index?: number):void {
-        //if(option !== null && option !== undefined){
-        //    updateValue(option);
-        //}
+        if(option !== null && option !== undefined){
+            let formItem: FormItem = props.item;
+            formItem.type = option.key.toString();
+            let _temp: FormItem = new FormItem(formItem.id, formItem.type, formItem.label, formItem.value, formItem.items); 
+            props.updateItem(_temp);
+        }
     }
 
     return (
@@ -46,11 +48,12 @@ export const JSFormEditItem = (props: Props) => {
             placeholder="Select an option"
             options={options}
             styles={dropdownStyles}
-            defaultSelectedKey={formItem.type}
+            defaultSelectedKey={props.item.type}
             onChange={handleTypeChange}
+            id={props.item.id}
         />
-        <TextField type="text" value={formItem.label} onChange={handleLabelChange} />
-        <DefaultButton type="button" onClick={() => props.deleteItem(formItem.id)} >Delete </DefaultButton>
+        <TextField type="text" value={props.item.label} onChange={handleLabelChange} />
+        <DefaultButton type="button" onClick={() => props.deleteItem(props.item.id)} >Delete </DefaultButton>
         <hr/>
     </div>
     );

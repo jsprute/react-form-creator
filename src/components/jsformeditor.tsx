@@ -11,9 +11,11 @@ export const JSFormEditor = (props: Props) => {
 
     const [list, updateList] = useState(props.items);
     const itemList: ReactElement[] = [];
+    const [_id, updateNextId] = useState(1);
 
     function addItem(event: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement | HTMLDivElement | BaseButton | Button | HTMLSpanElement, MouseEvent>):void {
-        updateList(list => [...list, new FormItem(list.length.toString(),"single-text", "Item " + list.length.toString(), "No value", [])]);
+        updateList(list => [...list, new FormItem(_id.toString(),"single-text", "Item " + list.length.toString(), "No value", [])]);
+        updateNextId(_id+1);
     }
 
     function updateItem(formItem: FormItem):void {
@@ -25,20 +27,19 @@ export const JSFormEditor = (props: Props) => {
     function deleteItem(id: string):void {
         console.log(`Deleting item id: ${id}`)
         let tempList = list
-            .filter(item => item.id !== id)
-            .map((item,i) => {item.id = i.toString(); return item;});
-        console.log(tempList);
+            .filter(item => item.id !== id);
         updateList(tempList);
     }
 
     list.forEach((item,i) => {
         itemList.push(
-            <div key={i}>
+            <div key={item.id}>
                 <JSFormEditItem item={item} updateItem={updateItem} deleteItem={deleteItem}/>
             </div>
         );
     });
 
+    console.log(list);
     return (
     <div>
         {itemList}

@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import { DefaultButton, PrimaryButton } from '@fluentui/react';
 import { Storage } from '../services/storage.interface';
 import { Dropdown, IDropdownStyles, IDropdownOption } from 'office-ui-fabric-react/lib/Dropdown';
+import { FormItem } from '../models';
 
 type Props = {
     message: string,
