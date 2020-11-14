@@ -3,8 +3,7 @@ import { FormItem } from '../models';
 import { PrimaryButton, DefaultButton, BaseButton, Button } from '@fluentui/react';
 import {JSFormEditItem} from './jsformedititem';
 type Props = {
-    items: FormItem[],
-    handleSave: (values: any) => void
+    items: FormItem[]
 }
 
 export const JSFormEditor = (props: Props) => {
@@ -44,7 +43,6 @@ export const JSFormEditor = (props: Props) => {
     <div>
         {itemList}
         <DefaultButton type="button" onClick={addItem} >Add Item </DefaultButton>
-        <PrimaryButton type="button" onClick={() => props.handleSave(list)} > Save </PrimaryButton>
     </div>
     );
 

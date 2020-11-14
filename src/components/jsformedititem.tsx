@@ -3,6 +3,7 @@ import { FormItem } from '../models';
 import { DefaultButton } from '@fluentui/react';
 import { TextField } from '@fluentui/react';
 import { Dropdown, IDropdownStyles, IDropdownOption } from 'office-ui-fabric-react/lib/Dropdown';
+import {JSFormEditor} from './jsformeditor';
 
 type Props = {
     item: FormItem,
@@ -53,6 +54,9 @@ export const JSFormEditItem = (props: Props) => {
             id={props.item.id}
         />
         <TextField type="text" value={props.item.label} onChange={handleLabelChange} />
+        <div hidden={props.item.type != "group"}>
+            <JSFormEditor items={props.item.items}></JSFormEditor>
+        </div>
         <DefaultButton type="button" onClick={() => props.deleteItem(props.item.id)} >Delete </DefaultButton>
         <hr/>
     </div>

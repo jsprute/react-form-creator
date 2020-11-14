@@ -5,7 +5,7 @@ import { Storage } from '../services/storage.interface';
 import { JSTextInputPopUp } from '../components/jstextinputpopup';
 import { JSConfirmPopUp } from '../components/jsconfirmpopup';
 import { FormItem } from '../models/formitem';
-import { DefaultButton } from '@fluentui/react';
+import { DefaultButton, PrimaryButton } from '@fluentui/react';
 
   type Props = {
     storage: Storage,
@@ -126,7 +126,8 @@ export class FormList extends React.Component<Props, State> {
                   Delete </DefaultButton>
                </div>
             </div>
-            <JSFormEditor items={[]} handleSave={(values)=>{}} />
+            <JSFormEditor items={[]} />
+            <PrimaryButton type="button" onClick={() => alert("Saving.")} > Save </PrimaryButton>
             {popElement}
         </div>
     );
