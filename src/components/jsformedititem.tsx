@@ -8,7 +8,7 @@ import {JSFormEditor} from './jsformeditor';
 type Props = {
     item: FormItem,
     updateItem: (formItem: FormItem) => void,
-    deleteItem: (id: string) => void,
+    deleteItem: (id: string) => void
 }
 
 const dropdownStyles: Partial<IDropdownStyles> = {
@@ -42,6 +42,13 @@ export const JSFormEditItem = (props: Props) => {
         }
     }
 
+    function updateParent(items: FormItem[]){
+        let formItem: FormItem = props.item;
+        let _temp: FormItem = new FormItem(formItem.id, formItem.type, formItem.label, formItem.value, items);
+        props.updateItem(_temp); 
+            
+    }
+
     return (
     <div>
         <hr/>
@@ -55,7 +62,7 @@ export const JSFormEditItem = (props: Props) => {
         />
         <TextField type="text" value={props.item.label} onChange={handleLabelChange} />
         <div hidden={props.item.type != "group"}>
-            <JSFormEditor items={props.item.items}></JSFormEditor>
+            <JSFormEditor items={props.item.items} updateParent={updateParent}></JSFormEditor>
         </div>
         <DefaultButton type="button" onClick={() => props.deleteItem(props.item.id)} >Delete </DefaultButton>
         <hr/>

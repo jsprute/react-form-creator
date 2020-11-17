@@ -3,7 +3,8 @@ import { FormItem } from '../models';
 import { PrimaryButton, DefaultButton, BaseButton, Button } from '@fluentui/react';
 import {JSFormEditItem} from './jsformedititem';
 type Props = {
-    items: FormItem[]
+    items: FormItem[],
+    updateParent?: (formItems: FormItem[]) => void
 }
 
 export const JSFormEditor = (props: Props) => {
@@ -13,21 +14,32 @@ export const JSFormEditor = (props: Props) => {
     const [_id, updateNextId] = useState(1);
 
     function addItem(event: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement | HTMLDivElement | BaseButton | Button | HTMLSpanElement, MouseEvent>):void {
-        updateList(list => [...list, new FormItem(_id.toString(),"single-text", "Item " + list.length.toString(), "No value", [])]);
+        let items = [...list, new FormItem(_id.toString(),"single-text", "Item " + list.length.toString(), "No value", [])];
+        updateList(items);
         updateNextId(_id+1);
+        if(props.updateParent){
+            props.updateParent(items);
+        }
     }
 
     function updateItem(formItem: FormItem):void {
-        let tempList = list.map(item => {if(formItem.id !== item.id) return item; else return formItem;});
-        updateList(tempList);
+        let items = list.map(item => {if(formItem.id !== item.id) return item; else return formItem;});
+        updateList(items);
+        if(props.updateParent){
+            props.updateParent(items);
+        }
+
     }
 
     // will need to create item update!
     function deleteItem(id: string):void {
         console.log(`Deleting item id: ${id}`)
-        let tempList = list
+        let items = list
             .filter(item => item.id !== id);
-        updateList(tempList);
+        updateList(items);
+        if(props.updateParent){
+            props.updateParent(items);
+        }
     }
 
     list.forEach((item,i) => {
