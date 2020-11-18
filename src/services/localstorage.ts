@@ -41,22 +41,20 @@ export class LocalStorage implements Storage {
     }
     
     GetForm(name: string){
-
-
-        return [
-            new FormItem("","single-text","First Name","",[]),
-            new FormItem("","single-text","Middle Name","",[]),
-            new FormItem("","single-text","Third Name","",[]),
-            new FormItem("","checkbox","Enabled",true,[]),
-            new FormItem("","group","My Group","",[
-              new FormItem("","single-text","City","",[]),
-              new FormItem("","single-text","State","",[]),
-              new FormItem("","group","My Sub-Group","",[
-                new FormItem("","single-text","Zip","",[]),
-                new FormItem("","single-text","Code","",[])
-              ])
+      return [
+          new FormItem("1","single-text","First Name","",[]),
+          new FormItem("2","single-text","Middle Name","",[]),
+          new FormItem("3","single-text","Third Name","",[]),
+          new FormItem("4","checkbox","Enabled",true,[]),
+          new FormItem("5","group","My Group","",[
+            new FormItem("6","single-text","City","",[]),
+            new FormItem("7","single-text","State","",[]),
+            new FormItem("8","group","My Sub-Group","",[
+              new FormItem("9","single-text","Zip","",[]),
+              new FormItem("10","single-text","Code","",[])
             ])
-          ];
+          ])
+        ];
     }
 
     SaveForm(name: string, form: FormItem[]){

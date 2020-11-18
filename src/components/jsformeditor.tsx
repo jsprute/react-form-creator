@@ -9,13 +9,12 @@ type Props = {
 
 export const JSFormEditor = (props: Props) => {
 
-    const [list, updateList] = useState(props.items);
+    let list = props.items;
     const itemList: ReactElement[] = [];
     const [_id, updateNextId] = useState(1);
 
     function addItem(event: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement | HTMLDivElement | BaseButton | Button | HTMLSpanElement, MouseEvent>):void {
         let items = [...list, new FormItem(_id.toString(),"single-text", "Item " + list.length.toString(), "No value", [])];
-        updateList(items);
         updateNextId(_id+1);
         if(props.updateParent){
             props.updateParent(items);
@@ -24,7 +23,6 @@ export const JSFormEditor = (props: Props) => {
 
     function updateItem(formItem: FormItem):void {
         let items = list.map(item => {if(formItem.id !== item.id) return item; else return formItem;});
-        updateList(items);
         if(props.updateParent){
             props.updateParent(items);
         }
@@ -36,13 +34,13 @@ export const JSFormEditor = (props: Props) => {
         console.log(`Deleting item id: ${id}`)
         let items = list
             .filter(item => item.id !== id);
-        updateList(items);
         if(props.updateParent){
             props.updateParent(items);
         }
     }
 
     list.forEach((item,i) => {
+        console.log(item.type);
         itemList.push(
             <div key={item.id}>
                 <JSFormEditItem item={item} updateItem={updateItem} deleteItem={deleteItem}/>
