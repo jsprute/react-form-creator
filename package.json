@@ -14,6 +14,7 @@
     "@types/react-router-dom": "^5.1.5",
     "class-transformer": "^0.3.1",
     "es6-shim": "^0.35.5",
+    "guid-typescript": "^1.0.9",
     "localforage": "^1.9.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

@@ -6,6 +6,8 @@ import { JSTextInputPopUp } from '../components/jstextinputpopup';
 import { JSConfirmPopUp } from '../components/jsconfirmpopup';
 import { FormItem } from '../models/formitem';
 import { DefaultButton, PrimaryButton } from '@fluentui/react';
+import { HashRouter, Switch, Route, Link } from 'react-router-dom';
+
 
   type Props = {
     storage: Storage,
@@ -38,11 +40,12 @@ export class FormList extends React.Component<Props, State> {
   }
 
   handleGetForm(val: string) :void {
+    this.props.storage.GetForm(val).then(items => 
     this.setState({
       showLoadFormRequestValue:false,
       formName: val,
-      items: this.props.storage.GetForm(val)
-    });
+      items: items 
+    }));
   }
 
   handleSaveForm(val: string) :void {
@@ -139,6 +142,9 @@ export class FormList extends React.Component<Props, State> {
                 <DefaultButton  type="button" 
                   onClick={() => this.setState({showDeleteFormRequestValue:true})} > 
                   Delete </DefaultButton>
+               </div>
+               <div hidden={this.state.formName.length === 0}>
+                <Link to={`/formdisplay/${this.state.formName}`}>Test</Link>
                </div>
             </div>
             <JSFormEditor items={this.state.items} updateParent={(items)=> this.setState({items})} />

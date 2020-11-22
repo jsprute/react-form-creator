@@ -1,21 +1,23 @@
 import React, {useState, ReactElement} from 'react';
 import { FormItem } from '../models';
-import { PrimaryButton, DefaultButton, BaseButton, Button } from '@fluentui/react';
+import { DefaultButton, BaseButton } from '@fluentui/react';
 import {JSFormEditItem} from './jsformedititem';
+import {Guid} from 'guid-typescript';
+
 type Props = {
     items: FormItem[],
-    updateParent?: (formItems: FormItem[]) => void
+    updateParent: (formItems: FormItem[]) => void,
+    //startId: string
 }
 
 export const JSFormEditor = (props: Props) => {
 
     let list = props.items;
     const itemList: ReactElement[] = [];
-    const [_id, updateNextId] = useState(1);
-
-    function addItem(event: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement | HTMLDivElement | BaseButton | Button | HTMLSpanElement, MouseEvent>):void {
-        let items = [...list, new FormItem(_id.toString(),"single-text", "Item " + list.length.toString(), "No value", [])];
-        updateNextId(_id+1);
+    
+    function addItem(event: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement | HTMLDivElement | BaseButton | HTMLSpanElement, MouseEvent>):void {
+        let items = [...list, new FormItem(Guid.create().toString(),"single-text", "Item " + list.length.toString(), "No value", [])];
+        
         if(props.updateParent){
             props.updateParent(items);
         }

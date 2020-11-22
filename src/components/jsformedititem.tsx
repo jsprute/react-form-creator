@@ -58,7 +58,7 @@ export const JSFormEditItem = (props: Props) => {
             styles={dropdownStyles}
             defaultSelectedKey={props.item.type}
             onChange={handleTypeChange}
-            id={props.item.id}
+            id={props.item.id.toString()}
         />
         <TextField type="text" value={props.item.label} onChange={handleLabelChange} />
         <div hidden={props.item.type != "group"}>

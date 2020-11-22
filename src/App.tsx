@@ -41,6 +41,7 @@ function App() {
         <Switch >
           <Route exact path='/' component={Home}/>
           <Route path='/formlist' render={ (props) => <FormList {...props} storage={storage} /> } />
+          <Route path='/formdisplay/:form' render={ (props) => <FormDisplay {...props} storage={storage} /> } />
           <Route path='/formdisplay' render={ (props) => <FormDisplay {...props} storage={storage} /> } />
         </Switch>
         </div>

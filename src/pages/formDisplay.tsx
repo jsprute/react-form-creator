@@ -4,24 +4,38 @@ import {FormItem} from '../models/formitem';
 import {JSPopup} from '../components/jspopup';
 import {Storage} from '../services/storage.interface';
 
+
 type Props = {
   storage: Storage,
+  match: any
 }
 
 type State = {
   popUp: Boolean,
   message: string,
-  storage: Storage
+  form: FormItem[]
 }
 
 export class FormDisplay extends React.Component<Props, State> {
 
+  
   constructor(props: Props) {
     super(props);
+    
     this.state = {
       popUp: false,
       message: "",
-      storage: props.storage
+      form: []
+    }
+
+  }
+
+  componentDidMount() {
+    if(this.props.match?.params?.form){
+        let name = this.props.match.params.form;
+        this.props.storage.GetForm(name).then((items) => {
+          this.setState({form: items});
+      });
     }
   }
 
@@ -35,11 +49,11 @@ export class FormDisplay extends React.Component<Props, State> {
   }
 
   render() {
-    const form: FormItem[] = this.state.storage.GetForm("NameDoesNotMatterRightNow");
+    
     if(this.state.popUp) {
       return (
         <div>
-          <JSForm label="My Form" items={form}  handleSubmit={this.handleShow}/>
+          <JSForm label="My Form" items={this.state.form}  handleSubmit={this.handleShow}/>
           <JSPopup message={this.state.message} clickHandle={this.messageClicked}/>
         </div>
       );
@@ -47,9 +61,10 @@ export class FormDisplay extends React.Component<Props, State> {
     else {
     return (
         <div>
-          <JSForm label="My Form" items={form}  handleSubmit={this.handleShow}/>
+          <JSForm label="My Form" items={this.state.form}  handleSubmit={this.handleShow}/>
         </div>
       );
     }
+
   }
 }
