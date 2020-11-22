@@ -11,7 +11,7 @@ type Props = {
 
 export const JSForm = (props: Props) => {
 
-    const [vals, updateVals] = useState(buildTree({}, props.items));
+    let _formItems = buildTree({}, props.items);
     
     useEffect(() => {
         console.log("Form did mount!");
@@ -36,9 +36,9 @@ export const JSForm = (props: Props) => {
      */
     // will need to state the values 
     function handleChange(index: string, event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: any):void {
+        console.log(`Handle change for index: ${index}`)
         let indexes: string[] = index.split('-');
-        let temp:any = updateBranch(vals, props.items, indexes, event.target);
-        updateVals(temp);
+        let temp:any = updateBranch(_formItems, props.items, indexes, event.target);
     }
 
     function updateBranch(vals: any, items: FormItem[], indexes: string[], value: any) {
@@ -73,7 +73,7 @@ export const JSForm = (props: Props) => {
     return (
     <div>
         {formItems}
-        <PrimaryButton type="button" onClick={() => props.handleSubmit(vals)} > Show </PrimaryButton>
+        <PrimaryButton type="button" onClick={() => props.handleSubmit(_formItems)} > Submit </PrimaryButton>
    </div>
     );
 

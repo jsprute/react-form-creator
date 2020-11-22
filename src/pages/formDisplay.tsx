@@ -53,7 +53,6 @@ export class FormDisplay extends React.Component<Props, State> {
     if(this.state.popUp) {
       return (
         <div>
-          <JSForm label="My Form" items={this.state.form}  handleSubmit={this.handleShow}/>
           <JSPopup message={this.state.message} clickHandle={this.messageClicked}/>
         </div>
       );
