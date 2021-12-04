@@ -9,10 +9,10 @@ export class LocalStorage implements Storage {
 
   constructor() {
     this._store = localForage.createInstance({
-      name: 'Forms',
+      name: "Forms",
       version: 1.0,
-      storeName: `js-forms-storage`,
-      description: 'Custom Form Storage'
+      storeName: "js-forms-storage",
+      description: "Custom Form Storage"
     });
   }
   
