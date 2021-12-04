@@ -78,7 +78,10 @@ export class FormList extends React.Component<Props, State> {
             this.props.storage.SaveForm(_value, this.state.items);
           }
         })
-        .catch(error => alert(error));
+        .catch(error => {
+            console.error(error);
+            alert("Failed to save the form.")}
+          );
       }
       this.setState({showNewFormRequestValue:false});
   }

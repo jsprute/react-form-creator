@@ -20,7 +20,12 @@ export class LocalStorage implements Storage {
       return new Promise<string[]>((resolve, reject) => {
         this._store.getItem("_js_forms")
         .then(value => {
-              resolve((value as string).split(";"));
+              if(value){
+                resolve((value as string).split(";"));
+              }
+              else {
+                resolve([]);
+              }
           })
           .catch(err => {
             reject(err);
